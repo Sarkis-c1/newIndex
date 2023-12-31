@@ -18,7 +18,7 @@ summary, time, mark, audio, video {
 body {
     display: flex;
     flex-direction: column;
-    font-family: helvetica, arial, sans;
+    font-family: 'Open Sans', helvetica, arial, sans;
     min-height: 100vh;
 }
     .content-container {
@@ -26,6 +26,10 @@ body {
     padding-top: 10vh;
     width: 100%;
     display: flex;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Raleway', helvetica, sans;
+  font-weight: 100;
 }
 html {
     box-shadow: 0 0 0 30px #000 inset;
@@ -60,7 +64,7 @@ p {
 }
 
 /* HEADER STYLES */
-/* HEADER STYLES */
+
 .header {
     background-color: #000;
     color: #fff;
@@ -101,7 +105,9 @@ p {
   .header-nav a {
     color: #fff;
   }
-    .nav-links a {
+    .nav-links a,
+    .drop-trigger,
+    .show-mobile-menu {
     font-size: 0.8rem;
     font-weight: bold;
     text-decoration: none;
@@ -116,6 +122,105 @@ p {
   }
   .header-nav > li:first-child a:hover {
     color: #fff;
+  }
+  
+  /* DROPDOWN STYLES*/
+  
+  .dropdown {
+    position: relative; 
+    
+  }
+  .dropdown:hover .drop-menu {
+    display: block;
+  }
+  .dropdown:hover .drop-trigger:after {
+    border-color: #ed6e2f transparent transparent;
+  }
+
+  .drop-trigger {
+  display: inline-block;
+  padding-right: 1.5em;
+  position: relative;
+}
+
+.drop-trigger:after {
+  border: 0.3em solid;
+  border-color: #fff transparent transparent;
+  content: "";
+  height: 0;
+  width: 0;
+  top: 0.3em;
+  right: 0;
+  position: absolute;
+}
+.drop-menu {
+  position: absolute;
+  list-style: none;
+  padding: 1em 0 0;
+  right: 0;
+  z-index: 9;
+  display: none;
+  border: 1px solid blue;
+  box-shadow: 0 0 10px 0 rgba(0 0, 0, 0.2);
+}
+.drop-menu:before {
+  border: 0.6em solid;
+  border-color: transparent transparent #fff;
+  content: "";
+  height: 0;
+  position: absolute;
+  right: 1em;
+  top: -0.1em;
+  width: 0;
+}
+.drop-menu li {
+  background-color: #fff;
+}
+.drop-menu li ~ li {
+  border-top: 1px dotted rgba(0, 0, 0, 0.3);
+}
+.drop-menu li:first-child {
+  border-radius: 5px 5px 0 0;
+  color: #999;
+  font-size: 0.5em;
+  padding: 1em 1em 0.25em;
+  text-align: right;
+  text-transform: uppercase;
+}
+.drop-menu li:last-child {
+  border-radius: 0 0 5px 5px;
+}
+.drop-menu a {
+  color: #333;
+  display: block;
+  font-weight: normal;
+  padding: 0.5em 2em 0.5em 1em;
+  text-align: left;
+  text-transform: none;
+  white-space: nowrap;
+  }
+  .drop-menu a:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #333;
+  }
+
+/* MOBILE STYLES */
+
+.mobile-menu-check,
+.show-mobile-menu {
+  display:none;
+}
+
+  /* HIDEIN THE FOOTER */
+
+
+
+  .footer .dropdown:hover .drop-menu,
+  .footer .drop-trigger:after {
+    display: none;
+  }
+  .footer .drop-trigger {
+    padding-right: 0;
   }
 
   /* FOOTER  STYLES */
@@ -258,18 +363,18 @@ p {
     background: rgba(150, 150, 150, 0.5);
     border-radius: 99px;
     box-sizing: border-box;
-    color: #fff;
+    color: #000;
     display: inline-block;
     font-family: helvetica, arial, sans;
-    font-size: 1em;
+    font-size: 1.7em;
     font-weight: bold;
-    height: 2.5em;
+    height: 1.5em;
     line-height: 1;
-    padding-top: 0.85em;
+    padding-top: 0.25em;
     text-align: center;
     text-decoration: none;
     vertical-align: middle;
-    width: 2.5em;
+    width: 1.5em;
   }
   .social-link:hover,
   .social-link:active {
@@ -512,6 +617,71 @@ p {
         }
         .header.logo {
           left: auto;
+        }
+
+        /* MOBILE MENU */
+
+        .show-mobile-menu {
+          display: block;
+          float: right;
+          padding: 1.5em;
+          position: relative;
+          margin-top: 1.5vh;
+          text-transform: uppercase;
+          font-weight: bold;
+        }
+        .header-nav {
+          max-height: 0 ;
+          left: 0;
+          overflow: hidden;
+          padding: 0;
+          transition: all 0.5s ease-in-out;
+          background-color: #444;
+          box-sizing: border-box;
+          position:absolute;
+          top: 10vh;
+          width: 100vw;
+          z-index: 9;
+          text-align: center;
+        }
+        .header-nav li {
+          display: block;
+          margin-top: 1em;
+        }
+        .header-nav li ~ li {
+          border: 0;
+          padding: 0;
+        }
+        .header-nav li:last-child {
+          margin-bottom: 1em;
+        }
+        .header-nav li:first-child a {
+          color: #fff;
+        }
+
+        /* HIDE DROPDOWN IN THE NAV MENU */
+
+        .header-nav .dropdown:hover .drop-menu,
+        .header-nav .drop-trigger:after {
+          display: none;
+        }
+
+        .header-nav .drop-trigger {
+          padding-right: 0;
+        }
+        /* .header-nav .drop-menu */
+        .mobile-menu-check:checked ~ .header-nav {
+          max-height: 1000px;
+        }
+        .mobile-menu-check:checked ~ .show-mobile-menu:after {
+          background-color: #000;
+          color: #ed6e2f;
+          content: "CLOSE";
+          left: 0;
+          position: absolute;
+          text-align: center;
+          top: 1.5em;
+          width: 100%;
         }
 
         /* HOME STYLES*/
